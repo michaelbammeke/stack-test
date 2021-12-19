@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: drift action step
         id: drift
-        uses: michaelbammeke/cf-stack-drift@v5
+        uses: michaelbammeke/cf-stack-drift@v6
         with:
           aws-region: "us-east-1"
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
