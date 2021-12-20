@@ -1,5 +1,12 @@
-on: workflow_dispatch
-
+on: 
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'env'
+        required: true
+      subsystem:
+        description: 'subsystem'
+        required: true
 jobs:
   drift_job:
     runs-on: ubuntu-latest
@@ -9,10 +16,9 @@ jobs:
         id: drift
         uses: michaelbammeke/cf-stack-drift@v7
         with:
+          env: ${{ github.event.inputs.env }}
+          subsystem: ${{ github.event.inputs.subsystem }}
           aws-region: "us-east-1"
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session: ${{ secrets.AWS_SESSION_TOKEN }}
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
