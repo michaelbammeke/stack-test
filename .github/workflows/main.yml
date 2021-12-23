@@ -28,7 +28,7 @@ jobs:
           aws s3 ls
           aws s3 cp s3://artifactory-us-east-1-574574226067/github-workflows/ecr-push.sh .
           chmod u+x ./ecr-push.sh
-          ./ecr-push
+          ./ecr-push.sh
 
       # - name: drift action step
       #   id: drift
