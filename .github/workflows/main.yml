@@ -27,8 +27,10 @@ jobs:
           export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
           export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
           export AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}
-          aws s3 cp s3://artifactory-us-east-1-574574226067/github-workflows/ecr-push.sh .
-          ./ecr-push.sh
+          aws s3 ls
+          # aws s3 cp s3://artifactory-us-east-1-574574226067/github-workflows/ecr-push.sh .
+          # ./ecr-push.sh
+          
       # - name: drift action step
       #   id: drift
       #   uses: michaelbammeke/cf-stack-drift@v7
