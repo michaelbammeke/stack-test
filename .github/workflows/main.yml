@@ -34,7 +34,8 @@ jobs:
         run: |
           export SERVICE_NAME=app-signals-service
           export SERVICE_VERSION=0.16.2
-          aws s3 cp s3://artifactory-us-east-1-574574226067/github-workflows/ecr-push.sh .
+          export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query 'Account')
+          aws s3 cp s3://artifactory-us-east-1-$ACCOUNT_ID/github-workflows/ecr-push.sh .
           chmod u+x ./ecr-push.sh
           ./ecr-push.sh
 
