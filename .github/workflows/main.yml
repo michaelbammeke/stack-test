@@ -12,13 +12,28 @@ jobs:
     runs-on: ubuntu-latest
     name: Drift test job
     steps:
-      - name: drift action step
-        id: drift
-        uses: michaelbammeke/cf-stack-drift@v7
+      - name: Configure AWS Credentials (shared)
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          env: ${{ github.event.inputs.env }}
-          subsystem: ${{ github.event.inputs.subsystem }}
-          aws-region: "us-east-1"
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-session: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+          role-skip-session-tagging: true
+          role-duration-seconds: 900
+          mask-aws-account-id: false
+
+      - name: Test s3 script run
+        run: |
+          export AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}
+          aws cp s3://artifactory-us-east-1-574574226067/github-workflows/ecr-push.sh .
+          ./ecr-push.sh
+      # - name: drift action step
+      #   id: drift
+      #   uses: michaelbammeke/cf-stack-drift@v7
+      #   with:
+      #     env: ${{ github.event.inputs.env }}
+      #     subsystem: ${{ github.event.inputs.subsystem }}
+      #     aws-region: "us-east-1"
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-session: ${{ secrets.AWS_SESSION_TOKEN }}
