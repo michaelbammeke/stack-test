@@ -11,6 +11,9 @@ jobs:
   drift_job:
     runs-on: ubuntu-latest
     name: Drift test job
+    env:     
+      SUB_SYSTEM: asa
+
     steps:
       - name: Configure AWS Credentials (shared)
         uses: aws-actions/configure-aws-credentials@v1
@@ -29,6 +32,8 @@ jobs:
 
       - name: Test s3 script run
         run: |
+          export SERVICE_NAME=app-signals-service
+          export SERVICE_VERSION=0.16.1
           aws s3 cp s3://artifactory-us-east-1-574574226067/github-workflows/ecr-push.sh .
           chmod u+x ./ecr-push.sh
           ./ecr-push.sh
