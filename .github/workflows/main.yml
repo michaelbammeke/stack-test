@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Drift test job
     env:     
-      SUB_SYSTEM: asa
+      SUB_SYSTEM: iam
 
     steps:
       - name: Configure AWS Credentials (shared)
@@ -26,18 +26,17 @@ jobs:
           role-duration-seconds: 900
           mask-aws-account-id: false
         
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+      # - name: Login to Amazon ECR
+      #   id: login-ecr
+      #   uses: aws-actions/amazon-ecr-login@v1
 
       - name: Test s3 script run
         run: |
-          export SERVICE_NAME=app-signals-service
-          export SERVICE_VERSION=0.16.2
+          export ENV=dev
           export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query 'Account')
-          aws s3 cp s3://artifactory-us-east-1-$ACCOUNT_ID/github-workflows/ecr-push.sh .
-          chmod u+x ./ecr-push.sh
-          ./ecr-push.sh
+          aws s3 cp s3://artifactory-us-east-1-$ACCOUNT_ID/github-workflows/cf-drift .
+          chmod u+x ./cf-drift.sh
+          ./cf-drift.sh
 
       # - name: drift action step
       #   id: drift
