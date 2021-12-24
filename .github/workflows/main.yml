@@ -27,7 +27,7 @@ jobs:
         run: |
           export ENV=dev
           export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query 'Account')
-          aws s3 cp s3://artifactory-us-east-1-$ACCOUNT_ID/github-workflows/cf-drift .
+          aws s3 cp s3://artifactory-us-east-1-$ACCOUNT_ID/github-workflows/cf-drift.sh .
           chmod u+x ./cf-drift.sh
           ./cf-drift.sh
 
