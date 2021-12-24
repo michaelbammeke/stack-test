@@ -1,12 +1,5 @@
 on: 
   workflow_dispatch:
-    inputs:
-      env:
-        description: 'env'
-        required: true
-      subsystem:
-        description: 'subsystem'
-        required: true
 jobs:
   drift_job:
     runs-on: ubuntu-latest
