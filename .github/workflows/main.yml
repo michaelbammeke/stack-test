@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Drift test job
     env:     
-      SUB_SYSTEM: iam
+      SUBSYSTEM: iam
 
     steps:
       - name: Configure AWS Credentials (shared)
