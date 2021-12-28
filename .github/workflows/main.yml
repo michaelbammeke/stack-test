@@ -10,16 +10,16 @@ jobs:
       SUBSYSTEM: iam
 
     steps:
-      - name: Configure AWS Credentials (shared)
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-          aws-region: us-east-1
-          role-skip-session-tagging: true
-          role-duration-seconds: 900
-          mask-aws-account-id: false
+      # - name: Configure AWS Credentials (shared)
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+      #     aws-region: us-east-1
+      #     role-skip-session-tagging: true
+      #     role-duration-seconds: 900
+      #     mask-aws-account-id: false
         
       # - name: Login to Amazon ECR
       #   id: login-ecr
@@ -27,11 +27,12 @@ jobs:
 
       - name: Test s3 script run
         run: |
-          export ENV=dev
-          export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query 'Account')
-          aws s3 cp s3://artifactory-us-east-1-$ACCOUNT_ID/github-workflows/cf-drift.sh .
-          chmod u+x ./cf-drift.sh
-          ./cf-drift.sh
+          echo ${{ secrets.CENTRAL_AWS_ACCESS_KEY_ID }}
+          # export ENV=dev
+          # export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query 'Account')
+          # aws s3 cp s3://artifactory-us-east-1-$ACCOUNT_ID/github-workflows/cf-drift.sh .
+          # chmod u+x ./cf-drift.sh
+          # ./cf-drift.sh
 
       # - name: drift action step
       #   id: drift
