@@ -27,7 +27,7 @@ jobs:
 
       - name: Test s3 script run
         run: |
-          echo ${{ secrets.CENTRAL_AWS_ACCESS_KEY_ID }}
+          echo "variable is: ${{ secrets.AWS_ACCESS_KEY_ID }}"
           # export ENV=dev
           # export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query 'Account')
           # aws s3 cp s3://artifactory-us-east-1-$ACCOUNT_ID/github-workflows/cf-drift.sh .
